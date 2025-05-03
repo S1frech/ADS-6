@@ -7,7 +7,7 @@ struct Node {
   T data;
   Node<T>* next;
   explicit Node(const T& data)
-      : data(data), next(nullptr) {}  
+      : data(data), next(nullptr) {}
 };
 
 template <typename T>
@@ -66,4 +66,4 @@ T TPQueue<T>::pop() {
   return value;
 }
 
-#endif  // TPQUEUE_H
+#endif  // INCLUDE_TPQUEUE_H_
