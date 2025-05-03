@@ -7,7 +7,8 @@ template <typename T>
 struct Node {
   T data;
   Node<T>* next;
-  Node(const T& data) : data(data), next(nullptr) {}
+  explicit Node(const T& data)
+      : data(data), next(nullptr) {}  // ← explicit добавлен
 };
 
 template <typename T>
