@@ -1,21 +1,23 @@
 // Copyright 2022 NNTU-CS
+
 #ifndef INCLUDE_TPQUEUE_H_
 #define INCLUDE_TPQUEUE_H_
+
+// Определяем структуру SYM прямо в заголовочном файле
+struct SYM {
+  char ch;
+  int prior;
+};
 
 template <typename T>
 struct Node {
   T data;
   Node<T>* next;
-  explicit Node(const T& data)
-      : data(data), next(nullptr) {}
+  explicit Node(const T& data) : data(data), next(nullptr) {}
 };
 
 template <typename T>
 class TPQueue {
- private:
-  Node<T>* head;
-  int size;
-
  public:
   TPQueue() : head(nullptr), size(0) {}
   ~TPQueue();
@@ -23,27 +25,21 @@ class TPQueue {
   void push(const T& value);
   T pop();
   bool isEmpty() const { return head == nullptr; }
-  int getSize() const { return size; }
-};
 
-template <typename T>
-TPQueue<T>::~TPQueue() {
-  while (!isEmpty()) {
-    pop();
-  }
-}
+ private:
+  Node<T>* head;
+  int size;
+};
 
 template <typename T>
 void TPQueue<T>::push(const T& value) {
   Node<T>* newNode = new Node<T>(value);
-
   if (isEmpty() || head->data.prior < value.prior) {
     newNode->next = head;
     head = newNode;
   } else {
     Node<T>* current = head;
-    while (current->next != nullptr &&
-           current->next->data.prior >= value.prior) {
+    while (current->next && current->next->data.prior >= value.prior) {
       current = current->next;
     }
     newNode->next = current->next;
@@ -54,16 +50,18 @@ void TPQueue<T>::push(const T& value) {
 
 template <typename T>
 T TPQueue<T>::pop() {
-  if (isEmpty()) {
-    throw "Queue is empty";
-  }
-
+  if (isEmpty()) throw "Queue is empty";
   Node<T>* temp = head;
-  T value = temp->data;
+  T data = temp->data;
   head = head->next;
   delete temp;
   size--;
-  return value;
+  return data;
+}
+
+template <typename T>
+TPQueue<T>::~TPQueue() {
+  while (!isEmpty()) pop();
 }
 
 #endif  // INCLUDE_TPQUEUE_H_
