@@ -1,7 +1,6 @@
 // Copyright 2021 NNTU-CS
-// include/tpqueue.h
-#ifndef TPQUEUE_H
-#define TPQUEUE_H
+#ifndef INCLUDE_TPQUEUE_H_
+#define INCLUDE_TPQUEUE_H_
 
 template <typename T>
 struct Node {
